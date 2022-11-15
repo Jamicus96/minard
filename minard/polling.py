@@ -1,5 +1,5 @@
 from .db import engine 
-import detector_state
+from . import detector_state
 
 # PMT Type defines
 PMT_TYPES = {

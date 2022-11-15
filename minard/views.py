@@ -6,8 +6,8 @@ import time
 from redis import Redis
 from os.path import join
 import json
-import HLDQTools
-import RSTools
+from . import HLDQTools
+from . import RSTools
 import requests
 from .tools import parseiso, total_seconds
 from collections import deque, namedtuple
@@ -18,28 +18,28 @@ from math import isnan
 import os
 import sys
 import random
-import detector_state
-import orca
-import nlrat
-import nearline_monitor
-import nearlinedb
-import nearline_settings
-import pingcratesdb
-import triggerclockjumpsdb
-import muonsdb
-import redisdb
-import cssProc as cssproc
-import fiber_position
-import occupancy
-import channelflagsdb
-import dropout
-import pmtnoisedb
-import gain_monitor
-import activity
-import scintillator_level
-import burst as burst_f
-from shifter_information import get_shifter_information, set_shifter_information, ShifterInfoForm, get_experts
-from run_list import golden_run_list
+from . import detector_state
+from . import orca
+from . import nlrat
+from . import nearline_monitor
+from . import nearlinedb
+from . import nearline_settings
+from . import pingcratesdb
+from . import triggerclockjumpsdb
+from . import muonsdb
+from . import redisdb
+from . import cssProc as cssproc
+from . import fiber_position
+from . import occupancy
+from . import channelflagsdb
+from . import dropout
+from . import pmtnoisedb
+from . import gain_monitor
+from . import activity
+from . import scintillator_level
+from . import burst as burst_f
+from .shifter_information import get_shifter_information, set_shifter_information, ShifterInfoForm, get_experts
+from .run_list import golden_run_list
 from .polling import polling_runs, polling_info, polling_info_card, polling_check, get_cmos_rate_history, polling_summary, get_most_recent_polling_info, get_vmon, get_base_current_history, get_vmon_history
 from .channeldb import ChannelStatusForm, upload_channel_status, get_channels, get_channel_status, get_channel_status_form, get_channel_history, get_pmt_info, get_nominal_settings, get_discriminator_threshold, get_all_thresholds, get_maxed_thresholds, get_gtvalid_lengths, get_pmt_types, pmt_type_description, get_fec_db_history
 from .ecaldb import ecal_state, penn_daq_ccc_by_test, get_penn_daq_tests
@@ -49,6 +49,8 @@ from .resistor import get_resistors, ResistorValuesForm, get_resistor_values_for
 from .pedestalsdb import get_pedestals, bad_pedestals, qhs_by_channel
 from datetime import datetime
 from functools import wraps, update_wrapper
+
+import json
 
 TRIGGER_NAMES = \
 ['100L',
@@ -601,8 +603,8 @@ def orca_session_logs():
     results = orca.get_orca_session_logs(limit, offset)
 
     if results is None:
-	return render_template('orca_session_logs.html', error="No orca session logs.")
-
+        return render_template('orca_session_logs.html', error="No orca session logs.")
+    
     return render_template('orca_session_logs.html', results=results, limit=limit, offset=offset)
 
 @app.route('/nhit-monitor-thresholds')
@@ -612,7 +614,7 @@ def nhit_monitor_thresholds():
     results = detector_state.get_nhit_monitor_thresholds(limit, offset)
 
     if results is None:
-	return render_template('nhit_monitor_thresholds.html', error="No nhit monitor records.")
+        return render_template('nhit_monitor_thresholds.html', error="No nhit monitor records.")
 
     return render_template('nhit_monitor_thresholds.html', results=results, limit=limit, offset=offset)
 
@@ -621,7 +623,7 @@ def nhit_monitor(key):
     results = detector_state.get_nhit_monitor(key)
 
     if results is None:
-	return render_template('nhit_monitor.html', error="No nhit monitor record with key %i." % key)
+        return render_template('nhit_monitor.html', error="No nhit monitor record with key %i." % key)
 
     return render_template('nhit_monitor.html', results=results)
 
@@ -635,7 +637,7 @@ def nhit_monitor_thresholds_nearline():
     results = detector_state.get_nhit_monitor_thresholds_nearline(limit, offset, sort_by, run_range_low, run_range_high)
 
     if results is None:
-	return render_template('nhit_monitor_thresholds_nearline.html', error="No nhit monitor records.")
+        return render_template('nhit_monitor_thresholds_nearline.html', error="No nhit monitor records.")
 
     return render_template('nhit_monitor_thresholds_nearline.html', results=results, limit=limit, offset=offset, sort_by=sort_by, run_range_low=run_range_low, run_range_high=run_range_high)
 
@@ -644,7 +646,7 @@ def nhit_monitor_nearline(key):
     results = detector_state.get_nhit_monitor_nearline(key)
 
     if results is None:
-	return render_template('nhit_monitor_nearline.html', error="No nhit monitor record with key %i." % key)
+        return render_template('nhit_monitor_nearline.html', error="No nhit monitor record with key %i." % key)
 
     return render_template('nhit_monitor_nearline.html', results=results)
 
@@ -653,7 +655,7 @@ def trigger():
     results = detector_state.get_latest_trigger_scans()
 
     if results is None:
-	return render_template('trigger.html', error="No trigger scans.")
+        return render_template('trigger.html', error="No trigger scans.")
 
     return render_template('trigger.html', results=results)
 

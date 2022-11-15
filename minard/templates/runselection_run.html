@@ -300,15 +300,15 @@
                   <tbody>
                     <tr>
                       <td>Run</td>
-                      <td>{{ run_info[run_number][run_info[run_number].keys()[0]]["run_range"][0] }}</td>
+                      <td>{{ run_info[run_number][(run_info[run_number]|first)]["run_range"][0] }}</td>
                     </tr>
                     <tr>
                       <td>Start timestamp</td>
-                      <td>{{ run_info[run_number][run_info[run_number].keys()[0]]["run_time"]["notes"]["dt"]["timestamp"] }}</td>
+                      <td>{{ run_info[run_number][(run_info[run_number]|first)]["run_time"]["notes"]["dt"]["timestamp"] }}</td>
                     </tr>
                     <tr>
                       <td>Duration</td>
-                      <td>{{ run_info[run_number][run_info[run_number].keys()[0]]["run_time"]["notes"]["dt"]["orca_duration"] }} s</td>
+                      <td>{{ run_info[run_number][(run_info[run_number]|first)]["run_time"]["notes"]["dt"]["orca_duration"] }} s</td>
                     </tr>
                     <tr>
                       <td>Criteria</td>
@@ -336,11 +336,11 @@
                     {% endfor %}
                     <tr>
                       <td>Last reviewed</td>
-                      <td>{{ run_info[run_number][run_info[run_number].keys()[0]]["time"] }}</td>
+                      <td>{{ run_info[run_number][(run_info[run_number]|first)]["time"] }}</td>
                     </tr>
                     <tr>
                       <td>Last reviewer</td>
-                      <td>{{ run_info[run_number][run_info[run_number].keys()[0]]["name"] }}</td>
+                      <td>{{ run_info[run_number][(run_info[run_number]|first)]["name"] }}</td>
                     </tr>
                   </tbody>
                 </table>
