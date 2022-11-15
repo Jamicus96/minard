@@ -1,4 +1,4 @@
-import detector_state
+from . import detector_state
 import glob
 import os
 import re

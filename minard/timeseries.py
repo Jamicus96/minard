@@ -2,7 +2,7 @@ from __future__ import print_function
 import sys
 from redis import Redis
 import bisect
-from redistools import maxcard, avgcard, maxcrate, avgcrate
+from .redistools import maxcard, avgcard, maxcrate, avgcrate
 from .db import engine
 
 redis = Redis()

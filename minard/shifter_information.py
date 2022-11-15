@@ -2,7 +2,7 @@ import psycopg2
 from .db import engine
 from .views import app
 from wtforms import Form, StringField, SelectField, validators
-from wtforms.fields.html5 import EmailField
+from wtforms.fields import EmailField
 from wtforms.validators import ValidationError
 
 VALID_COUNTRIES = [

@@ -14,12 +14,20 @@ def file_list_form_builder(formobj, runlists, data):
     class FileListForm(Form):
         pass
 
+    print('formobj =', formobj)
+    print('runlists =', runlists)
+    print('data =', data)
+
     # if formobj == -1:
     for (i, listname) in enumerate(runlists.keys()):
         listnum = runlists[listname]
+        print('i =', i, ', listname =', listname)
+        print('listnum =', listnum)
         if listnum in data and formobj == -1:
+            print('if listnum in data and formobj == -1:')
             setattr(FileListForm, '%s' % listname, BooleanField(label=listname, default='checked'))
         else:
+            print('else:')
             setattr(FileListForm, '%s' % listname, BooleanField(label=listname))
 
         setattr(FileListForm, 'name', StringField('Name', [validators.Length(min=1), validators.InputRequired(), validators.Regexp('[A-Za-z0-9\s]{1,}', message='First and second name required.')]))
@@ -270,6 +278,6 @@ def import_RS_ratdb(runs, result, limit, offset):
         # temp = json.loads(row[0])
         temp = row[0]
         listData[temp["pass"]] = temp
-        print temp
+        print(temp)
 
     return info, criteriaInfo, OrderedDict(sorted(listData.items()))
