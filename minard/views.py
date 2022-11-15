@@ -1277,9 +1277,9 @@ def metric():
     step = int(step)
 
     if ',' in expr:
-        return jsonify(values=[get_metric(name, start, stop, step) for name in expr.split(',')])
+        return jsonify(values=[list(get_metric(name, start, stop, step)) for name in expr.split(',')])
     else:
-        return jsonify(values=get_metric(expr, start, stop, step))
+        return jsonify(values=list(get_metric(expr, start, stop, step)))
 
 @app.route('/eca')
 def eca():
